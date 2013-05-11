@@ -1,0 +1,14 @@
+name: SignFix
+main: com.udonya.signfix.SignFix
+version: ${project.version}
+authors:
+  - udonya
+description: Japanese sign input method.
+website: http://dev.bukkit.org/server-mods/signfix/
+dev-url: https://github.com/udonya
+commands:
+  signfix:
+    aliases: [signfix, sf]
+    description: Set multilang character to a sign.
+    permission: signfix.*
+    usage: SignFix root command. See /sf help for more.
