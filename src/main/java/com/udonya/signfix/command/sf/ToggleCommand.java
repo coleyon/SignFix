@@ -1,7 +1,5 @@
 package com.udonya.signfix.command.sf;
 
-import java.util.Map;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,7 +20,7 @@ public class ToggleCommand extends AbstractCommand {
 
     @Override
     public boolean areCompatibleParameters(CommandSender sender, Command command, String s, String[] args) {
-        if(args == null) return false;
+        if (args == null) return false;
         if (args.length != 1) return false;
         if (!args[0].equalsIgnoreCase("toggle")) return false;
         return true;
@@ -30,18 +28,15 @@ public class ToggleCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        if (!(sender instanceof Player)) return false;
-        Map<String, Boolean> enables = this.plugin.getEnables();
-        if(!enables.containsKey(sender.getName())) return false;
-        Boolean flg = enables.get(sender.getName());
-        if(flg){
-            enables.put(sender.getName(), false);
-            sender.sendMessage("Disabled SignFix.");
+        if (!(sender instanceof Player)) return true;
+        boolean isSuccess;
+        if (this.plugin.getDisabled().contains(sender.getName())){
+            isSuccess = this.plugin.getDisabled().remove(sender.getName());
+            if(isSuccess) sender.sendMessage("[SignFix] Enabled.");
         }else{
-            enables.put(sender.getName(), true);
-            sender.sendMessage("Enabled SignFix.");
+            isSuccess = this.plugin.getDisabled().add(sender.getName());
+            if(isSuccess) sender.sendMessage("[SignFix] Disabled.");
         }
-        this.plugin.setEnables(enables);
-        return true;
+        return isSuccess;
     }
 }

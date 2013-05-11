@@ -1,20 +1,31 @@
 package com.udonya.signfix;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import org.bukkit.block.Sign;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.udonya.signfix.command.AbstractCommandHandler;
 import com.udonya.signfix.command.sf.CommandHandler;
 import com.udonya.signfix.listener.PlayerQuitListener;
-import com.udonya.signfix.listener.SignRightClickListener;
+import com.udonya.signfix.listener.SignBreakableCheckListener;
+import com.udonya.signfix.listener.SignLeftClickListener;
 
 public class SignFix extends JavaPlugin {
     /**
      * Sign clicking records.
      */
     private Map<String, Sign> clicked;
-    private Map<String, Boolean> enables;
+    /**
+     * Each player's plugin function disabled status.
+     */
+    private Set<String> disabled;
+    /**
+     * Sign's each Lines.
+     */
+    private Map<String, String[]> signLines;
 
     private AbstractCommandHandler cmdExecutor;
 
@@ -27,11 +38,13 @@ public class SignFix extends JavaPlugin {
     public void onEnable() {
         super.onEnable();
         clicked = new HashMap<String, Sign>();
-        enables = new HashMap<String, Boolean>();
+        disabled = new HashSet<String>();
+        signLines = new HashMap<String, String[]>();
 
         // register events
         new PlayerQuitListener(this);
-        new SignRightClickListener(this);
+        new SignLeftClickListener(this);
+        new SignBreakableCheckListener(this);
 
         // register commands
         this.cmdExecutor = new CommandHandler(this);
@@ -54,12 +67,21 @@ public class SignFix extends JavaPlugin {
         this.clicked = clicked;
     }
 
-    public Map<String, Boolean> getEnables() {
-        return enables;
+    public Set<String> getDisabled() {
+        return disabled;
     }
 
-    public void setEnables(Map<String, Boolean> enables) {
-        this.enables = enables;
+    public void setDisabled(Set<String> disabled) {
+        this.disabled = disabled;
     }
+
+    public Map<String, String[]> getSignLines() {
+        return signLines;
+    }
+
+    public void setSignLines(Map<String, String[]> signLines) {
+        this.signLines = signLines;
+    }
+
 
 }

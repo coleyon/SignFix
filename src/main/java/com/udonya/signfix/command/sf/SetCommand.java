@@ -2,10 +2,13 @@ package com.udonya.signfix.command.sf;
 
 import java.util.Map;
 
+import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+
 import com.udonya.signfix.SignFix;
 import com.udonya.signfix.command.AbstractCommand;
 import com.udonya.signfix.command.CmdOwner;
@@ -31,18 +34,13 @@ public class SetCommand  extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!(sender instanceof Player)) return false;
+        if (this.plugin.getDisabled().contains(sender.getName())) return false;
         Map<String, Sign> clicked = this.plugin.getClicked();
         if(!clicked.containsKey(sender.getName())) return false;
         Sign sign = clicked.get(sender.getName());
-        try {
-            sign.setLine(0, args[1]);
-            sign.setLine(1, args[2]);
-            sign.setLine(2, args[3]);
-            sign.setLine(3, args[4]);
-        } catch (Exception e) {
-            sender.sendMessage("Could not set your input character to the sign.");
-            return false;
-        }
-        return sign.update();
+        this.plugin.getSignLines().put(sender.getName(), args);
+        this.plugin.getServer().getPluginManager().callEvent(new BlockBreakEvent(sign.getBlock(), (Player)sender));
+        return true;
     }
+
 }

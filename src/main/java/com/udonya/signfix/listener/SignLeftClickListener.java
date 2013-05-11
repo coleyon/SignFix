@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.udonya.signfix.SignFix;
 
-public class SignRightClickListener implements Listener {
+public class SignLeftClickListener implements Listener {
     /**
      * Refs of plugin instance
      */
@@ -19,7 +19,7 @@ public class SignRightClickListener implements Listener {
      * Constructor
      * @param plugin
      */
-    public SignRightClickListener(SignFix plugin) {
+    public SignLeftClickListener(SignFix plugin) {
         this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
@@ -30,11 +30,10 @@ public class SignRightClickListener implements Listener {
      */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
+        if (this.plugin.getDisabled().contains(event.getPlayer().getName())) return;
         if(event.getAction() != Action.LEFT_CLICK_BLOCK) return;
         if(!event.getClickedBlock().getType().equals(Material.SIGN) && !event.getClickedBlock().getType().equals(Material.SIGN_POST)) return;
         this.plugin.getClicked().put(event.getPlayer().getName(), (Sign) event.getClickedBlock().getState());
-        event.getPlayer().sendMessage("If you enter the following command, character will be input to the sign you clicked now.");
-        event.getPlayer().sendMessage("/sf set <line1> <line2> <line3> <line4>");
+        event.getPlayer().sendMessage("[SignFix] Selected the sign you've hit.");
     }
-
 }
