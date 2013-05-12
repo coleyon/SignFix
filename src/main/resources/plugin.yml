@@ -1,9 +1,9 @@
 name: SignFix
 main: com.udonya.signfix.SignFix
-version: ${project.version}
+version: 0.1
 authors:
   - udonya
-description: Japanese sign input method.
+description: Sign input methods within command-line.
 website: http://dev.bukkit.org/server-mods/signfix/
 dev-url: https://github.com/udonya
 commands:

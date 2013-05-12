@@ -5,12 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.udonya.SignFix</groupId>
   <artifactId>SignFix</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
-  <description>Bukkit plugin the SignFix</description>
+  <description>Sign input methods within command-line.</description>
   <url>https://github.com/udonya/SignFix</url>
   <name>SignFix</name>
   <licenses>
@@ -40,7 +40,8 @@
       <dependency>
           <groupId>org.bukkit</groupId>
           <artifactId>bukkit</artifactId>
-          <version>1.5.2-R0.2-SNAPSHOT</version>
+          <version>LATEST</version>
+          <scope>provided</scope>
       </dependency>
   </dependencies>
   <!-- Repositories -->
@@ -65,16 +66,12 @@
   <build>
     <finalName>${project.name}</finalName>
     <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
-    <defaultGoal>clean install</defaultGoal>
+    <defaultGoal>clean compile</defaultGoal>
+
+    <!-- Plugins -->
     <plugins>
-      <!--
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.5</version>
-      </plugin>
-       -->
-      <plugin>
+        <!-- Compiler -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
@@ -100,48 +97,11 @@
               <Class-Path>SignFix/SignFix.jar</Class-Path>
             </manifestEntries>
           </archive>
-          <!--
           <excludes>
             <exclude>*.properties</exclude>
           </excludes>
-          -->
         </configuration>
-      </plugin>
-      <plugin>
-        <!-- http://maven.apache.org/plugins/maven-javadoc-plugin/javadoc-mojo.html -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.8.1</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <docencoding>${project.build.sourceEncoding}</docencoding>
-          <charset>${project.build.sourceEncoding}</charset>
-          <locales>ja</locales>
-          <bottom><![CDATA[Copyleft &#169;{inceptionYear}-{currentYear}, <a href="http://udonya.dip.jp/jenkins/">udonya.dip.jp.</a> All Rights Reversed.]]> </bottom>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <locales>ja</locales>
-          <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
-          <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>

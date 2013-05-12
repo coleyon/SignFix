@@ -26,7 +26,7 @@ public class SetCommand  extends AbstractCommand {
     @Override
     public boolean areCompatibleParameters(CommandSender sender, Command command, String s, String[] args) {
         if(args == null) return false;
-        if (args.length < 2 || 5 < args.length) return false;
+        if (args.length < 2) return false;
         if (!args[0].equalsIgnoreCase("set")) return false;
         return true;
     }

@@ -1,5 +1,11 @@
 package com.udonya.signfix.listener;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.lang.CharUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -10,6 +16,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import com.udonya.signfix.SignFix;
 
 public class SignBreakableCheckListener implements Listener {
+    private static final char SPACE = ' ';
+    private static final char DQUOT = '"';
+
     /**
      * Refs of plugin instance
      */
@@ -38,15 +47,10 @@ public class SignBreakableCheckListener implements Listener {
         event.getPlayer().sendMessage("drop item Canceled!");
 
         if(!this.plugin.getSignLines().containsKey(event.getPlayer().getName())) return;
-        try {
-            String[] args = this.plugin.getSignLines().get(event.getPlayer().getName());
-            sign.setLine(0, args[1]);
-            sign.setLine(1, args[2]);
-            sign.setLine(2, args[3]);
-            sign.setLine(3, args[4]);
-        } catch (Exception e) {
-            event.getPlayer().sendMessage("Could not set your input character to the sign.");
-            return;
+        String[] args = getArgs(this.plugin.getSignLines().get(event.getPlayer().getName()), 1);
+        for (int i = 0; i < args.length; i++) {
+            event.getPlayer().sendMessage(Integer.toString(i) + ": " + args[i]);
+            sign.setLine(i, args[i]);
         }
         sign.update();
     }
@@ -66,5 +70,64 @@ public class SignBreakableCheckListener implements Listener {
         if (block.getLocation().getPitch() != sign.getLocation().getPitch()) return false;
         if (block.getLocation().getYaw() != sign.getLocation().getYaw()) return false;
         return true;
+    }
+
+    private String[] getArgs(String[] args, int excludeIdx){
+        char[] chars = getCharArray(args);
+        List<String> newArgs = getFixedArgs(chars);
+        for (int i = 0; i < excludeIdx; i++) {
+            newArgs.remove(0);
+        }
+        return newArgs.toArray(new String[newArgs.size()]);
+    }
+
+    private char[] getCharArray(String[] args){
+        StringBuilder sb = new StringBuilder();
+        for (String string : args) {
+            sb.append(string);
+            sb.append(SPACE);
+        }
+        return sb.toString().toCharArray();
+    }
+
+    private List<String> getFixedArgs(char[] chars){
+        boolean quoting = false;
+        boolean separating = false;
+        List<String> newArgs = new ArrayList<String>();
+        StringBuffer buff = new StringBuffer();
+        for (char c : chars) {
+            // check space separation
+            if(c == SPACE && !quoting){
+                // ignore. (quotation separeted just before)
+                if(buff.length() == 0) continue;
+                // no quoting separation
+                separating = true;
+            }
+            // check quote separation
+            if(c == DQUOT){
+                if(!quoting){
+                    // start quotation
+                    quoting = true;
+                    separating = false;
+                    continue;
+                }else{
+                    // end quotation
+                    quoting = false;
+                    separating = true;
+                }
+            }
+
+            if(separating){
+                // separate buffer
+                newArgs.add(buff.toString());
+                buff = new StringBuffer();
+                separating = false;
+                quoting = false;
+            }else{
+                // add character
+                buff.append(c);
+            }
+        }
+        return newArgs;
     }
 }
