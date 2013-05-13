@@ -1,11 +1,7 @@
 package com.udonya.signfix.listener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang.CharUtils;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -15,7 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import com.udonya.signfix.SignFix;
 
-public class SignBreakableCheckListener implements Listener {
+public class CheckSignBreakableListener implements Listener {
     private static final char SPACE = ' ';
     private static final char DQUOT = '"';
 
@@ -28,31 +24,26 @@ public class SignBreakableCheckListener implements Listener {
      * Constructor
      * @param plugin
      */
-    public SignBreakableCheckListener(SignFix plugin) {
+    public CheckSignBreakableListener(SignFix plugin) {
         this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler(ignoreCancelled = true)
-    public void onSignBreakableCheck(BlockBreakEvent event){
-        event.getPlayer().sendMessage("CheckStarting...");
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onCheckSignBreakable(BlockBreakEvent event){
         if (event.isCancelled()) return;						// Breaking the block is cancelled by other plugins.
         if (event.getPlayer() == null) return;					// Breaking the block is no related to this plugin.
-        if (!this.plugin.getClicked().containsKey(event.getPlayer().getName())) return;
-        Sign sign = this.plugin.getClicked().get(event.getPlayer().getName());
+        String playerName = event.getPlayer().getName();
+        if (!this.plugin.getClicked().containsKey(playerName)) return;
+        Sign sign = this.plugin.getClicked().get(playerName);
         if (!isSameLocation(event.getBlock(), sign)) return;	// The block is not same sign.
-
-        event.getBlock().getDrops().clear();
-        event.setCancelled(true);
-        event.getPlayer().sendMessage("drop item Canceled!");
-
-        if(!this.plugin.getSignLines().containsKey(event.getPlayer().getName())) return;
-        String[] args = getArgs(this.plugin.getSignLines().get(event.getPlayer().getName()), 1);
+        //event.getBlock().getDrops().clear();
+        if(!this.plugin.getSignLines().containsKey(playerName)) return;
+        String[] args = getArgs(this.plugin.getSignLines().get(playerName), 1);
         for (int i = 0; i < args.length; i++) {
-            event.getPlayer().sendMessage(Integer.toString(i) + ": " + args[i]);
             sign.setLine(i, args[i]);
         }
-        sign.update();
+        if(sign.update()) this.plugin.getSignLines().remove(playerName);
     }
 
     /**
@@ -72,6 +63,12 @@ public class SignBreakableCheckListener implements Listener {
         return true;
     }
 
+    /**
+     *
+     * @param args
+     * @param excludeIdx
+     * @return
+     */
     private String[] getArgs(String[] args, int excludeIdx){
         char[] chars = getCharArray(args);
         List<String> newArgs = getFixedArgs(chars);
@@ -81,6 +78,11 @@ public class SignBreakableCheckListener implements Listener {
         return newArgs.toArray(new String[newArgs.size()]);
     }
 
+    /**
+     *
+     * @param args
+     * @return
+     */
     private char[] getCharArray(String[] args){
         StringBuilder sb = new StringBuilder();
         for (String string : args) {
@@ -90,6 +92,11 @@ public class SignBreakableCheckListener implements Listener {
         return sb.toString().toCharArray();
     }
 
+    /**
+     * create fixed args.
+     * @param chars
+     * @return
+     */
     private List<String> getFixedArgs(char[] chars){
         boolean quoting = false;
         boolean separating = false;

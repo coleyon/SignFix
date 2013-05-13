@@ -2,7 +2,6 @@ package com.udonya.signfix.command.sf;
 
 import java.util.Map;
 
-import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

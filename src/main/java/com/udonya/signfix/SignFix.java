@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.udonya.signfix.command.AbstractCommandHandler;
 import com.udonya.signfix.command.sf.CommandHandler;
 import com.udonya.signfix.listener.PlayerQuitListener;
-import com.udonya.signfix.listener.SignBreakableCheckListener;
+import com.udonya.signfix.listener.CheckSignBreakableListener;
 import com.udonya.signfix.listener.SignLeftClickListener;
 
 public class SignFix extends JavaPlugin {
@@ -44,7 +44,7 @@ public class SignFix extends JavaPlugin {
         // register events
         new PlayerQuitListener(this);
         new SignLeftClickListener(this);
-        new SignBreakableCheckListener(this);
+        new CheckSignBreakableListener(this);
 
         // register commands
         this.cmdExecutor = new CommandHandler(this);

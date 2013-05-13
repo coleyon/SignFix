@@ -1,6 +1,6 @@
 name: SignFix
 main: com.udonya.signfix.SignFix
-version: 0.1
+version: 0.2
 authors:
   - udonya
 description: Sign input methods within command-line.
@@ -10,5 +10,4 @@ commands:
   signfix:
     aliases: [signfix, sf]
     description: Set multilang character to a sign.
-    permission: signfix.*
     usage: SignFix root command. See /sf help for more.

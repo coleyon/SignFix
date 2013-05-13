@@ -95,9 +95,6 @@ public abstract class AbstractCommandHandler implements CommandExecutor {
     private boolean isExecutablePerm(CommandSender commandSender,
             AbstractCommand command) {
         return true;
-        // TBD implements permission management
-        // return permMgr.permission.has((Player)commandSender,
-        // command.getPermission());
     }
 
     public String getCmdName() {
