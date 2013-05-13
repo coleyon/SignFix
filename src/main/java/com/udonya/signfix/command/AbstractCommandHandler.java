@@ -2,6 +2,8 @@ package com.udonya.signfix.command;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +16,11 @@ import org.bukkit.entity.Player;
  *
  */
 public abstract class AbstractCommandHandler implements CommandExecutor {
+    protected static final String clrCmd = ChatColor.AQUA.toString();			// main commands
+    protected static final String clrReq = ChatColor.GREEN.toString();			// parameters
+    protected static final String clrDesc = ChatColor.WHITE.toString();			// command descriptions
+    protected static final String clrErr = ChatColor.RED.toString();			// errors / notices
+
     /**
      * All provided plugin commands
      */
@@ -29,7 +36,7 @@ public abstract class AbstractCommandHandler implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String commandLabel, String[] args) {
         AbstractCommand tgtCmd = syntaxMatching(commandSender, command, commandLabel, args);
         if (tgtCmd == null) {
-            commandSender.sendMessage("Specified pattern is not exists this plugin, Type '/sf help' for help.");
+            commandSender.sendMessage(clrErr + "Specified pattern is not exists this plugin.");
             return false;
         }
         if (!isExecutable(commandSender, tgtCmd, args)) {
@@ -46,12 +53,11 @@ public abstract class AbstractCommandHandler implements CommandExecutor {
      */
     protected AbstractCommand syntaxMatching(CommandSender commandSender, Command command, String commandLabel, String[] args) {
         for (AbstractCommand cmd : this.providedCmds) {
-            // TODO commandSender.sendMessage(cmd.getPermission());
             if (cmd.areCompatibleParameters(commandSender, cmd, commandLabel, args)) {
                 return cmd;
             }
         }
-        commandSender.sendMessage("syntax unmatched.");
+        commandSender.sendMessage(clrErr + "Syntax unmatched.");
         return null;
     }
 
@@ -68,7 +74,7 @@ public abstract class AbstractCommandHandler implements CommandExecutor {
             // player command line
             if (!command.owner.isPlayerExecutable()) {
                 commandSender
-                        .sendMessage("This command is not player executable.");
+                        .sendMessage(clrErr + "This command is not player executable.");
                 return false;
             }
             if (!isExecutablePerm(commandSender, command)) {
@@ -78,7 +84,7 @@ public abstract class AbstractCommandHandler implements CommandExecutor {
             // console command line
             if (!command.owner.isConsoleExecutable()) {
                 commandSender
-                        .sendMessage("This command is not console executable.");
+                        .sendMessage(clrErr + "This command is not console executable.");
                 return false;
             }
         }

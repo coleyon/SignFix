@@ -1,5 +1,6 @@
 package com.udonya.signfix.command;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -11,6 +12,10 @@ import com.udonya.signfix.SignFix;
  * @author udonya
  */
 public abstract class AbstractCommand extends Command {
+    protected static final String clrCmd = ChatColor.AQUA.toString();			// main commands
+    protected static final String clrReq = ChatColor.GREEN.toString();			// parameters
+    protected static final String clrDesc = ChatColor.WHITE.toString();			// command descriptions
+    protected static final String clrErr = ChatColor.RED.toString();			// errors / notices
 
     /**
      * オーナー情報

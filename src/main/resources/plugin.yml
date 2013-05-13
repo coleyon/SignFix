@@ -10,4 +10,4 @@ commands:
   signfix:
     aliases: [signfix, sf]
     description: Set multilang character to a sign.
-    usage: SignFix root command. See /sf help for more.
+    usage: This is SignFix's command. See /sf help for more.

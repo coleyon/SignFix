@@ -27,8 +27,8 @@ public class PlayerQuitListener implements Listener{
      */
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
-        String clicker = event.getPlayer().getName();
-        if(this.plugin.getClicked().containsKey(clicker)) this.plugin.getClicked().remove(clicker);
+        String playerName = event.getPlayer().getName();
+        if(this.plugin.getClicked().containsKey(playerName)) this.plugin.getClicked().remove(playerName);
     }
 
 }

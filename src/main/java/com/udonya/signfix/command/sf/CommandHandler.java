@@ -11,7 +11,6 @@ public class CommandHandler extends AbstractCommandHandler {
      * @param plugin
      */
     public CommandHandler(SignFix plugin) {
-        // set root command name
         cmdName = "signfix";
         providedCmds.add(new SetCommand(cmdName, plugin));
         providedCmds.add(new ToggleCommand(cmdName, plugin));
