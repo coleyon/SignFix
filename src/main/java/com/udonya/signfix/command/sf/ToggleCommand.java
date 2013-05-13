@@ -32,10 +32,10 @@ public class ToggleCommand extends AbstractCommand {
         boolean isSuccess;
         if (this.plugin.getDisabled().contains(sender.getName())){
             isSuccess = this.plugin.getDisabled().remove(sender.getName());
-            if(isSuccess) sender.sendMessage(clrCmd + "[SignFix] Enabled.");
+            if(isSuccess) sender.sendMessage(clrCmd + "SignFix was enabled.");
         }else{
             isSuccess = this.plugin.getDisabled().add(sender.getName());
-            if(isSuccess) sender.sendMessage(clrCmd + "[SignFix] Disabled.");
+            if(isSuccess) sender.sendMessage(clrCmd + "SignFix was disabled.");
         }
         return isSuccess;
     }
