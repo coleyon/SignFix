@@ -1,7 +1,6 @@
 package com.udonya.signfix.command.sf;
 
 import java.util.Map;
-
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,8 +16,8 @@ public class SetCommand  extends AbstractCommand {
     public SetCommand(String name, SignFix plugin) {
         super(name, plugin);
         owner = CmdOwner.valueOf(true, true);
-        setDescription("");
-        setPermission("signfix.set");
+        setDescription("Set specified text to the Sign.");
+        setPermission("signfix.enable");
         setUsage("/sf set <line1> <line2> <line3> <line4>");
     }
 
@@ -32,8 +31,8 @@ public class SetCommand  extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        if (!(sender instanceof Player)) return false;
-        if (this.plugin.getDisabled().contains(sender.getName())) return false;
+        if(!(sender instanceof Player)) return false;
+        if(this.plugin.getDisabled().contains(sender.getName())) return false;
         Map<String, Sign> clicked = this.plugin.getClicked();
         if(!clicked.containsKey(sender.getName())) return false;
         Sign sign = clicked.get(sender.getName());

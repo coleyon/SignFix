@@ -1,5 +1,6 @@
 package com.udonya.signfix.command.sf;
 
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ public class ToggleCommand extends AbstractCommand {
         super(name, plugin);
         owner = CmdOwner.valueOf(true, true);
         setDescription("Toggle Enable Disable this plugin's function");
-        setPermission("signfix.toggle");
+        setPermission("signfix.enable");
         setUsage("/sf toggle");
     }
 
@@ -29,6 +30,10 @@ public class ToggleCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!(sender instanceof Player)) return true;
+        if(!sender.hasPermission("signfix.enable")) {
+            sender.sendMessage(Color.RED + "You don't have permission!");
+            return true;
+        }
         boolean isSuccess;
         if (this.plugin.getDisabled().contains(sender.getName())){
             isSuccess = this.plugin.getDisabled().remove(sender.getName());

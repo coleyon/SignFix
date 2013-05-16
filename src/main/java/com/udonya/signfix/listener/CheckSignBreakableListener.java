@@ -15,15 +15,8 @@ public class CheckSignBreakableListener implements Listener {
     private static final char SPACE = ' ';
     private static final char DQUOT = '"';
 
-    /**
-     * Refs of plugin instance
-     */
     private final SignFix plugin;
 
-    /**
-     * Constructor
-     * @param plugin
-     */
     public CheckSignBreakableListener(SignFix plugin) {
         this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -46,12 +39,6 @@ public class CheckSignBreakableListener implements Listener {
         if(sign.update()) this.plugin.getSignLines().remove(playerName);
     }
 
-    /**
-     * Check the block and the sign is same block.
-     * @param block
-     * @param sign
-     * @return
-     */
     private boolean isSameLocation(Block block, Sign sign){
         if (!block.getLocation().getWorld().getName().equals(sign.getLocation().getWorld().getName())) return false;
         if (!block.getType().equals(sign.getType())) return false;
@@ -63,12 +50,6 @@ public class CheckSignBreakableListener implements Listener {
         return true;
     }
 
-    /**
-     *
-     * @param args
-     * @param excludeIdx
-     * @return
-     */
     private String[] getArgs(String[] args, int excludeIdx){
         char[] chars = getCharArray(args);
         List<String> newArgs = getFixedArgs(chars);
@@ -78,11 +59,6 @@ public class CheckSignBreakableListener implements Listener {
         return newArgs.toArray(new String[newArgs.size()]);
     }
 
-    /**
-     *
-     * @param args
-     * @return
-     */
     private char[] getCharArray(String[] args){
         StringBuilder sb = new StringBuilder();
         for (String string : args) {
@@ -92,11 +68,6 @@ public class CheckSignBreakableListener implements Listener {
         return sb.toString().toCharArray();
     }
 
-    /**
-     * create fixed args.
-     * @param chars
-     * @return
-     */
     private List<String> getFixedArgs(char[] chars){
         boolean quoting = false;
         boolean separating = false;

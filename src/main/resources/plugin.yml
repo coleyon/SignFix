@@ -1,13 +1,22 @@
 name: SignFix
 main: com.udonya.signfix.SignFix
-version: 1.0.0
+version: 1.1.0
 authors:
   - udonya
 description: Sign input methods within command-line.
 website: http://dev.bukkit.org/server-mods/signfix/
 dev-url: https://github.com/udonya
+prefix: SignFix
+softdepend: [Vault]
 commands:
   signfix:
     aliases: [signfix, sf]
     description: Provides a way to input text to sign with the command-line.
     usage: This is SignFix's command. See /sf help for more.
+    permission: signfix.enable
+permissions:
+  signfix.*:
+    children:
+      signfix.enable: true
+  signfix.enable:
+    default: op
