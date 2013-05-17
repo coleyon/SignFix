@@ -1,7 +1,7 @@
-package com.udonya.signfix.command.sf;
+package com.github.udonya.signfix.command.sf;
 
-import com.udonya.signfix.SignFix;
-import com.udonya.signfix.command.AbstractCommandHandler;
+import com.github.udonya.signfix.SignFix;
+import com.github.udonya.signfix.command.AbstractCommandHandler;
 
 public class CommandHandler extends AbstractCommandHandler {
 

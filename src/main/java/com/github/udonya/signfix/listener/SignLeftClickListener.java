@@ -1,4 +1,4 @@
-package com.udonya.signfix.listener;
+package com.github.udonya.signfix.listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.udonya.signfix.SignFix;
+import com.github.udonya.signfix.SignFix;
 
 public class SignLeftClickListener implements Listener {
     /**

@@ -1,4 +1,4 @@
-package com.udonya.signfix.command;
+package com.github.udonya.signfix.command;
 
 import java.util.ArrayList;
 import java.util.List;

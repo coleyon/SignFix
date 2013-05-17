@@ -1,10 +1,10 @@
-package com.udonya.signfix.command;
+package com.github.udonya.signfix.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.udonya.signfix.SignFix;
+import com.github.udonya.signfix.SignFix;
 
 /**
  * 抽象コマンド

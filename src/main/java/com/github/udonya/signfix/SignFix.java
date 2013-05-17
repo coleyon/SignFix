@@ -1,4 +1,4 @@
-package com.udonya.signfix;
+package com.github.udonya.signfix;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,11 +10,12 @@ import net.milkbowl.vault.permission.Permission;
 import org.bukkit.block.Sign;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.udonya.signfix.command.AbstractCommandHandler;
-import com.udonya.signfix.command.sf.CommandHandler;
-import com.udonya.signfix.listener.PlayerQuitListener;
-import com.udonya.signfix.listener.CheckSignBreakableListener;
-import com.udonya.signfix.listener.SignLeftClickListener;
+
+import com.github.udonya.signfix.command.AbstractCommandHandler;
+import com.github.udonya.signfix.command.sf.CommandHandler;
+import com.github.udonya.signfix.listener.CheckSignBreakableListener;
+import com.github.udonya.signfix.listener.PlayerQuitListener;
+import com.github.udonya.signfix.listener.SignLeftClickListener;
 
 public class SignFix extends JavaPlugin {
     /**

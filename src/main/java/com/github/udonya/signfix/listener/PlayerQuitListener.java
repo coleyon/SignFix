@@ -1,10 +1,10 @@
-package com.udonya.signfix.listener;
+package com.github.udonya.signfix.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.udonya.signfix.SignFix;
+import com.github.udonya.signfix.SignFix;
 
 public class PlayerQuitListener implements Listener{
     /**

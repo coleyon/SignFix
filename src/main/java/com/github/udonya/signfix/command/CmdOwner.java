@@ -1,4 +1,4 @@
-package com.udonya.signfix.command;
+package com.github.udonya.signfix.command;
 
 /**
  * Owner of commands

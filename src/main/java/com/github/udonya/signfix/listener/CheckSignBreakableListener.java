@@ -1,4 +1,4 @@
-package com.udonya.signfix.listener;
+package com.github.udonya.signfix.listener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import com.udonya.signfix.SignFix;
+import com.github.udonya.signfix.SignFix;
 
 public class CheckSignBreakableListener implements Listener {
     private static final char SPACE = ' ';

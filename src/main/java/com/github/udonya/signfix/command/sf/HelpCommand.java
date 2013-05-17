@@ -1,11 +1,12 @@
-package com.udonya.signfix.command.sf;
+package com.github.udonya.signfix.command.sf;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.udonya.signfix.SignFix;
-import com.udonya.signfix.command.AbstractCommand;
-import com.udonya.signfix.command.CmdOwner;
+
+import com.github.udonya.signfix.SignFix;
+import com.github.udonya.signfix.command.AbstractCommand;
+import com.github.udonya.signfix.command.CmdOwner;
 
 public class HelpCommand extends AbstractCommand {
 
