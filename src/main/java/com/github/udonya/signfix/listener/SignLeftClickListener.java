@@ -34,7 +34,9 @@ public class SignLeftClickListener implements Listener {
         if(this.plugin.getDisabled().contains(event.getPlayer().getName())) return;
         if(!event.getPlayer().hasPermission("signfix.enable")) return;
         if(event.getAction() != Action.LEFT_CLICK_BLOCK) return;
-        if(!event.getClickedBlock().getType().equals(Material.SIGN) && !event.getClickedBlock().getType().equals(Material.SIGN_POST)) return;
+        if(!event.getClickedBlock().getType().equals(Material.SIGN) &&
+                !event.getClickedBlock().getType().equals(Material.SIGN_POST)  &&
+                !event.getClickedBlock().getType().equals(Material.WALL_SIGN)) return;
         this.plugin.getClicked().put(event.getPlayer().getName(), (Sign) event.getClickedBlock().getState());
         event.getPlayer().sendMessage(ChatColor.AQUA.toString() + "[SignFix] Selected the sign you've hit.");
     }
