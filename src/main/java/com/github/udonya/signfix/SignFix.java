@@ -4,13 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.block.Sign;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import com.github.udonya.signfix.command.AbstractCommandHandler;
 import com.github.udonya.signfix.command.sf.CommandHandler;
 import com.github.udonya.signfix.listener.CheckSignBreakableListener;
@@ -33,11 +28,6 @@ public class SignFix extends JavaPlugin {
 
     private AbstractCommandHandler cmdExecutor;
 
-    /**
-     * Vault permission manager
-     */
-    public static Permission permission = null;
-
     @Override
     public void onDisable() {
         super.onDisable();
@@ -58,8 +48,6 @@ public class SignFix extends JavaPlugin {
         // register commands
         this.cmdExecutor = new CommandHandler(this);
         getCommand(this.cmdExecutor.getCmdName()).setExecutor(this.cmdExecutor);
-
-        setupPermissions();
     }
 
     /**
@@ -92,14 +80,6 @@ public class SignFix extends JavaPlugin {
 
     public void setSignLines(Map<String, String[]> signLines) {
         this.signLines = signLines;
-    }
-
-    private boolean setupPermissions(){
-        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
-        if (permissionProvider != null) {
-            permission = permissionProvider.getProvider();
-        }
-        return (permission != null);
     }
 
 }
